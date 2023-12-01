@@ -28,6 +28,7 @@ impl Gust {
         Self {
             windows: Vec::new(),
             count: 0,
+            custom_event_handlers: HashMap::new(),
         }
     }
 
@@ -96,13 +97,13 @@ impl Gust {
         }
     }
 
-    fn add_custom_event_handler(&mut self, event: CustomEvent, handler: Box<dyn Fn()>) {
+    fn add_event_handler(&mut self, event: CustomEvent, handler: Box<dyn Fn()>) {
         // Add a user-defined custom event and its handler
         self.custom_event_handlers.insert(event, handler);
     }
 
     /* Example of adding a custom event handler
-    gust.add_custom_event_handler(CustomEvent::CustomButtonClick, Box::new(|| {
+    gust.add_event_handler(CustomEvent::CustomButtonClick, Box::new(|| {
         println!("Handling custom button click event!");
     }));
     */
