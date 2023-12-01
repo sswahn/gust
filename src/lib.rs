@@ -1,2 +1,2 @@
 mod gust;
-pub use gust::{Gust, Layout, Widgets, Style};
+pub use gust::{Gust, Layout, Widgets};
