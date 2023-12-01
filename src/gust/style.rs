@@ -2,15 +2,15 @@
 struct Style {
     text_color: String,
     background_color: String,
-    font_size: u16,
+    font_size: String,
 }
 
 impl Style {
-    fn new(text_color: &str, background_color: &str, font_size: u16) -> Self {
+    fn new(styles: HashMap<String, String>) -> Self {
         Self {
-            text_color: text_color.to_string(),
-            background_color: background_color.to_string(),
-            font_size,
+            text_color: styles.text_color,
+            background_color: styles.background_color,
+            font_size: styles.font_size,
         }
     }
 }
