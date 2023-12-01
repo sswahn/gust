@@ -125,14 +125,11 @@ impl Gust {
             match &event {
                 Event::WindowEvent { event, window_id } => {
                     if self.handle_window_event(event, *window_id) && self.windows.is_empty() {
-                        // If the last window is closed, exit the application
-                        *control_flow = ControlFlow::Exit;
+                        *control_flow = ControlFlow::Exit; // If the last window is closed, exit the application
                     }
                 }
-
                 Event::UserEvent(user_event) => {
-                    // Handle user-defined custom events
-                    self.handle_custom_event(*user_event);
+                    self.handle_custom_event(*user_event); // Handle user-defined custom events
                 }
                 _ => (),
             }
