@@ -1,3 +1,5 @@
+// add more widget styles:
+
 struct Styles {
     text_color: Option<String>,
     background_color: Option<String>,
