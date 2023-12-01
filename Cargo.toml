@@ -6,6 +6,9 @@ license = "MIT"
 repository = "https://github.com/sswahn/gust"
 description = "A simple GUI for Rust applications."
 
+[lib]
+name = "Gust"
+
 [dependencies]
 winit = "0.29.4"
 
