@@ -1,15 +1,9 @@
 use winit::{
-    event::{Event, WindowEvent},
+    event::{ElementState, Event, KeyboardInput, VirtualKeyCode, WindowEvent},
     event_loop::{ControlFlow, EventLoop},
     platform::windows::WindowBuilderExtWindows,
     window::WindowBuilder,
 };
-
-// Define a custom event enum that users can extend
-enum CustomEvent {
-    CustomButtonClick,
-    // Add more custom events as needed
-}
 
 struct Gust {
     count: usize,
@@ -20,8 +14,6 @@ impl Gust {
         Self { count: 0 }
     }
 
-    //Extend window management to support multiple windows and dialogs.
-    //Implement window resizing, minimizing, and maximizing.
     fn handle_window_event(&mut self, event: &WindowEvent, window_id: winit::window::WindowId) -> bool {
         match event {
             WindowEvent::CloseRequested if window_id == window_id => true,
@@ -40,6 +32,23 @@ impl Gust {
                 false
             }
             _ => false,
+        }
+    }
+
+    fn handle_keyboard_input(&mut self, input: &KeyboardInput) {
+        if let ElementState::Pressed = input.state {
+            match input.virtual_keycode {
+                Some(VirtualKeyCode::Enter) => {
+                    // Simulate a button click when Enter key is pressed
+                    self.count += 1;
+                    println!("Button clicked: {}", self.count);
+
+                    // Emit a custom button click event
+                    self.emit_custom_event(CustomEvent::CustomButtonClick);
+                }
+                // Add more keyboard navigation as needed
+                _ => (),
+            }
         }
     }
 
@@ -85,10 +94,20 @@ impl Gust {
                     // Handle user-defined custom events
                     self.handle_custom_event(*user_event);
                 }
+                Event::KeyboardInput { input, .. } => {
+                    // Handle keyboard input events
+                    self.handle_keyboard_input(input);
+                }
                 _ => (),
             }
         });
     }
+}
+
+// CustomEvent enum remains unchanged
+enum CustomEvent {
+    CustomButtonClick,
+    // Add more custom events as needed
 }
 
 fn main() {
