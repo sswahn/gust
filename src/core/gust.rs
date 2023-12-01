@@ -10,7 +10,6 @@ use winit::{
 struct Gust {
     windows: Vec<Window>,
     count: usize,
-    custom_event_handlers: HashMap<CustomEvent, Box<dyn Fn()>>,
 }
 
 struct Window {
@@ -24,7 +23,6 @@ impl Gust {
         Self {
             windows: Vec::new(),
             count: 0,
-            custom_event_handlers: HashMap::new(),
         }
     }
 
