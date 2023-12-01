@@ -88,12 +88,6 @@ impl Gust {
         }
     }
 
-    fn emit_custom_event(&self, event: CustomEvent) {
-        if let Some(handler) = self.custom_event_handlers.get(&event) {
-            handler();
-        }
-    }
-
     fn handle_custom_event(&self, event: CustomEvent) {
         // Handle user-defined custom events
         if let Some(handler) = self.custom_event_handlers.get(&event) {
@@ -105,7 +99,6 @@ impl Gust {
         // Add a user-defined custom event and its handler
         self.custom_event_handlers.insert(event, handler);
     }
-
 
     /* Example of adding a custom event handler
     gust.add_custom_event_handler(CustomEvent::CustomButtonClick, Box::new(|| {
