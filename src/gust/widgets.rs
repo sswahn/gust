@@ -8,14 +8,14 @@ trait Widget {
 // Define a basic label widget
 struct Label {
     text: String,
-    style: 
+    style: Option<Style>
 }
 
 impl Label {
     fn new(text: &str) -> Self {
         Self {
             text: text.to_string(),
-            style:
+            style: None,
         }
     }
     fn set_style(&mut self, style: Style) {
@@ -32,6 +32,7 @@ impl Widget for Label {
 // Define a basic button widget
 struct Button {
     label: String,
+    style: Option<Style>,
     on_click: Rc<dyn Fn()>,
 }
 
@@ -39,6 +40,7 @@ impl Button {
     fn new(label: &str, on_click: Rc<dyn Fn()>) -> Self {
         Self {
             label: label.to_string(),
+            style: None,
             on_click,
         }
     }
@@ -59,6 +61,7 @@ impl Widget for Button {
 // Define a basic text box widget
 struct TextBox {
     text: String,
+    style: Option<Style>,
     on_change: Rc<dyn Fn(&str)>,
 }
 
@@ -66,6 +69,7 @@ impl TextBox {
     fn new(on_change: Rc<dyn Fn(&str)>) -> Self {
         Self {
             text: String::new(),
+            style: None,
             on_change,
         }
     }
@@ -87,6 +91,7 @@ impl Widget for TextBox {
 // Define a basic menu item widget
 struct MenuItem {
     label: String,
+    style: Option<Style>,
     on_select: Rc<dyn Fn()>,
 }
 
@@ -94,6 +99,7 @@ impl MenuItem {
     fn new(label: &str, on_select: Rc<dyn Fn()>) -> Self {
         Self {
             label: label.to_string(),
+            style: None,
             on_select,
         }
     }
@@ -114,11 +120,15 @@ impl Widget for MenuItem {
 // Define a menu widget
 struct Menu {
     items: Vec<MenuItem>,
+    style: Option<Style>,
 }
 
 impl Menu {
     fn new() -> Self {
-        Self { items: Vec::new() }
+        Self { 
+            items: Vec::new(),
+            style: None,
+        }
     }
     fn set_style(&mut self, style: Style) {
         self.style = Some(style);
