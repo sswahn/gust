@@ -1,4 +1,16 @@
-
+[package]
+name = "Gust"
+version = "1.56.0"
+edition = "2021"
+license = "MIT"
+repository = "https://github.com/sswahn/gust"
+description = "A simple GUI for Rust applications."
 
 [dependencies]
 winit = "0.29.4"
+
+[features]
+# Define features if needed
+
+[package.metadata.docs.rs]
+documentation = "https://github.com/sswahn/gust/blob/main/README.md"
