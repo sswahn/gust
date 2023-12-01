@@ -20,6 +20,8 @@ impl Gust {
         Self { count: 0 }
     }
 
+    //Extend window management to support multiple windows and dialogs.
+    //Implement window resizing, minimizing, and maximizing.
     fn handle_window_event(&mut self, event: &WindowEvent, window_id: winit::window::WindowId) -> bool {
         match event {
             WindowEvent::CloseRequested if window_id == window_id => true,
