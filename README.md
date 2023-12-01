@@ -49,12 +49,11 @@ impl MyApp {
 
         // Create custom styles
         let mut button_custom_styles = HashMap::new();
-        button_custom_styles.insert("background_color", "black");
-        button_custom_styles.insert("text_color", "white");
-        button_custom_styles.insert("font_size", 16);
+        button_styles.insert("background_color", "black");
+        button_styles.insert("text_color", "white");
+        button_styles.insert("font_size", 16);
 
         // Apply custom styles
-        let button_styles = Styles::new(button_custom_styles)
         button.set_styles(button_styles);
 
         // Add widgets to the layout
