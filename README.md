@@ -48,6 +48,15 @@ impl MyApp {
         let text_box = TextBox::new(on_text_change);
         let label = Label::new("Hello, Rust!");
 
+        // Create custom styles
+        let mut button_styles = HashMap::new();
+        button_styles.insert("background_color", "black");
+        button_styles.insert("text_color", "white");
+        button_styles.insert("font_size", 16);
+
+        // Apply custom styles
+        button.new(button_styles);
+
         // Add widgets to the layout
         self.gust.render(button);
         self.gust.render(text_box);
