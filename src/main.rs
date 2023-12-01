@@ -4,8 +4,6 @@ use winit::{
     event_loop::{EventLoop}
 };
 
-
-
 fn main() {
     let event_loop = EventLoop::new();
     let mut gust = Gust::new();
