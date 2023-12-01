@@ -51,7 +51,7 @@ impl MyApp {
         let mut button_custom_styles = HashMap::new();
         button_styles.insert("background_color", "black");
         button_styles.insert("text_color", "white");
-        button_styles.insert("font_size", 16);
+        button_styles.insert("font_size", "16");
 
         // Apply custom styles
         button.set_styles(button_styles);
