@@ -17,7 +17,6 @@ A simple GUI for Rust applications.
 ## Usage
 
 ```rust
-// Application using Gust
 use gust::{Gust, Button, TextBox, Label};
 
 struct MyApp {
