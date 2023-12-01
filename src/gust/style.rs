@@ -9,7 +9,7 @@ impl Styles {
         Self {
             text_color: styles.get("text_color").cloned(),
             background_color: styles.get("background_color").cloned(),
-            font_size: styles.get("font_size").cloned(),
+            font_size: styles.get("font_size").and_then(|v| parse_f32(v))
         }
     }
 }
