@@ -2,7 +2,7 @@
 struct Style {
     text_color: String,
     background_color: String,
-    font_size: String,
+    font_size: f32,
 }
 
 impl Style {
