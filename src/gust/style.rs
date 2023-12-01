@@ -1,11 +1,11 @@
 // Define a struct for widget styling
-struct Style {
+struct Styles {
     text_color: String,
     background_color: String,
     font_size: f32,
 }
 
-impl Style {
+impl Styles {
     fn new(styles: HashMap<String, String>) -> Self {
         Self {
             text_color: styles.text_color,
