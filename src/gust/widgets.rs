@@ -8,13 +8,18 @@ trait Widget {
 // Define a basic label widget
 struct Label {
     text: String,
+    style: 
 }
 
 impl Label {
     fn new(text: &str) -> Self {
         Self {
             text: text.to_string(),
+            style:
         }
+    }
+    fn set_style(&mut self, style: Style) {
+        self.style = Some(style);
     }
 }
 
@@ -37,7 +42,9 @@ impl Button {
             on_click,
         }
     }
-
+    fn set_style(&mut self, style: Style) {
+        self.style = Some(style);
+    }
     fn click(&self) {
         (self.on_click)();
     }
@@ -62,7 +69,9 @@ impl TextBox {
             on_change,
         }
     }
-
+    fn set_style(&mut self, style: Style) {
+        self.style = Some(style);
+    }
     fn set_text(&mut self, text: &str) {
         self.text = text.to_string();
         (self.on_change)(&self.text);
@@ -88,7 +97,9 @@ impl MenuItem {
             on_select,
         }
     }
-
+    fn set_style(&mut self, style: Style) {
+        self.style = Some(style);
+    }
     fn select(&self) {
         (self.on_select)();
     }
@@ -109,11 +120,12 @@ impl Menu {
     fn new() -> Self {
         Self { items: Vec::new() }
     }
-
+    fn set_style(&mut self, style: Style) {
+        self.style = Some(style);
+    }
     fn add_item(&mut self, item: MenuItem) {
         self.items.push(item);
     }
-
     fn select_item(&self, index: usize) {
         if let Some(item) = self.items.get(index) {
             item.select();
@@ -129,21 +141,3 @@ impl Widget for Menu {
         }
     }
 }
-
-
-/*
-fn main() {
-    // Create instances of the widgets
-    let label = Label::new("Hello, Rust!");
-    let button = Button::new("Click me", Rc::new(|| println!("Button clicked!")));
-    let text_box = TextBox::new(Rc::new(|text| println!("Text changed: {}", text)));
-
-    // Render the widgets
-    label.render();
-    button.render();
-    text_box.render();
-
-    // Interact with the button and text box
-    button.click();
-    text_box.set_text("New text");
-}*/
