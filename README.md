@@ -24,6 +24,17 @@ struct MyApp {
     gust: Gust,
 }
 
+// Define a button click callback
+let on_button_click = || {
+    println!("Button Clicked");
+};
+
+// Define a button click callback
+let on_textbox_change = |text| {
+    println!("Text Box Changed: {}", text)
+};
+
+
 impl MyApp {
     fn new() -> Self {
         Self { gust: Gust::new() }
@@ -31,7 +42,16 @@ impl MyApp {
 
     fn run(&mut self) {
         self.gust.create_window("Main Window");
-        // Add more Gust framework usage...
+
+        // Create a button with a closure
+        let button = Button::new("Click Me", on_button_click);
+        let text_box = TextBox::new(on_textbox_change);
+        let label = Label::new("Hello, Rust!");
+
+        // Add widgets to the layout
+        self.gust.add_widget(button);
+        self.gust.add_widget(text_box);
+        self.gust.add_widget(label);
     }
 }
 
