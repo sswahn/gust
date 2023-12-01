@@ -32,7 +32,7 @@ impl Gust {
         }
     }
 
-    fn create_window(&mut self, event_loop: &EventLoop<()>, title: &str) {
+    fn create_window(&mut self, event_loop: &mut EventLoop<()>, title: &str) {
         let window = WindowBuilder::new()
             .with_title(title)
             .with_resizable(true)
