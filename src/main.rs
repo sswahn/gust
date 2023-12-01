@@ -1,4 +1,3 @@
-
 use winit::{
     event::{Event, WindowEvent},
     event_loop::{ControlFlow, EventLoop},
@@ -35,6 +34,8 @@ impl Gust {
     fn run(&mut self, event_loop: EventLoop<()>) {
         let window = WindowBuilder::new()
             .with_title("Gust: A Rust GUI")
+            .with_resizable(true) // Allow resizing
+            .with_decorations(true) // Show window decorations (including close button)
             .build(&event_loop)
             .expect("Failed to create window");
 
@@ -51,7 +52,6 @@ impl Gust {
             }
         });
     }
-  
 }
 
 fn main() {
