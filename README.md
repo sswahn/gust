@@ -4,9 +4,15 @@ A simple GUI for Rust applications.
 
 ## Features
 
-- Create resizable and decorated windows.
-- Handle window events such as resize, close, mouse input, and keyboard input.
-- Maintain multiple windows and exit the application when all windows are closed.  
+- Structured with a modular design for flexibility and easy customization.
+- A variety of pre-built widgets, including buttons, labels, text boxes, and menus.
+- Flexible layout system to arrange widgets in a structured manner.
+- Customizable styling options for widgets and overall GUI appearance.
+- Intuitive event handling system for user interactions.
+- Simple API for easy integration into Rust applications.
+- Built on top of the cross-platform Winit library, ensuring compatibility across major platforms.
+- Easily extendable and customizable to meet specific application requirements.
+
 
 ## Usage
 
