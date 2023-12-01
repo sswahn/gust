@@ -111,28 +111,22 @@ impl Gust {
 
     fn run(&mut self) {
         let event_loop = EventLoop::new();
-        match self.create_window(&event_loop, "Main Window") {
-            Ok(_) => {
-                self.run_event_loop(event_loop)
-            }
-            Err(err) => {
-                eprintln!("Error creating window: {}", err);
-                // Handle the error, possibly by gracefully exiting the application
-            }
-        }
+        self.create_window(&event_loop, "Main Window").unwrap_or_else(|err| {
+            eprintln!("Error creating window: {}", err);
+        });
+    
+        self.run_event_loop(event_loop);
     }
 
-    fn run_event_loop(&mut self, event_loop) {
+    fn run_event_loop(&mut self, mut event_loop: EventLoop<()>) {
         event_loop.run(move |event, _, control_flow| {
             *control_flow = ControlFlow::Wait;
 
             match &event {
                 Event::WindowEvent { event, window_id } => {
-                    if self.handle_window_event(event, *window_id) {
+                    if self.handle_window_event(event, *window_id) && self.windows.is_empty() {
                         // If the last window is closed, exit the application
-                        if self.windows.len() == 0 {
-                            *control_flow = ControlFlow::Exit;
-                        }
+                        *control_flow = ControlFlow::Exit;
                     }
                 }
 
