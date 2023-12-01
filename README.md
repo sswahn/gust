@@ -49,13 +49,14 @@ impl MyApp {
         let label = Label::new("Hello, Rust!");
 
         // Create custom styles
-        let mut button_styles = HashMap::new();
-        button_styles.insert("background_color", "black");
-        button_styles.insert("text_color", "white");
-        button_styles.insert("font_size", 16);
+        let mut button_custom_styles = HashMap::new();
+        button_custom_styles.insert("background_color", "black");
+        button_custom_styles.insert("text_color", "white");
+        button_custom_styles.insert("font_size", 16);
 
         // Apply custom styles
-        button.new(button_styles);
+        let button_styles = Styles::new(button_custom_styles)
+        button.set_styles(button_styles);
 
         // Add widgets to the layout
         self.gust.render(button);
