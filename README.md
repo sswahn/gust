@@ -30,7 +30,7 @@ let on_button_click = || {
 };
 
 // Define a button click callback
-let on_textbox_change = |text| {
+let on_text_change = |text| {
     println!("Text Box Changed: {}", text)
 };
 
@@ -45,13 +45,13 @@ impl MyApp {
 
         // Create a button with a closure
         let button = Button::new("Click Me", on_button_click);
-        let text_box = TextBox::new(on_textbox_change);
+        let text_box = TextBox::new(on_text_change);
         let label = Label::new("Hello, Rust!");
 
         // Add widgets to the layout
-        self.gust.add_widget(button);
-        self.gust.add_widget(text_box);
-        self.gust.add_widget(label);
+        self.gust.render(button);
+        self.gust.render(text_box);
+        self.gust.render(label);
     }
 }
 
