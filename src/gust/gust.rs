@@ -1,7 +1,6 @@
-use std::collections::HashMap;
 use std::error::Error;
 use winit::{
-    event::{Event, WindowEvent, ElementState, MouseButton},
+    event::{Event, WindowEvent, ElementState, MouseButton}, // where is MouseButton being handled?
     event_loop::{ControlFlow, EventLoop},
     event::keyboard::VirtualKeyCode,  // Import VirtualKeyCode from the keyboard module
     platform::windows::WindowBuilderExtWindows,
