@@ -1,5 +1,7 @@
 use std::rc::Rc;
 
+// break widgets out into own files, and create default styles.
+
 // Define a trait for common properties and behavior of widgets
 trait Widget {
     fn render(&self);
