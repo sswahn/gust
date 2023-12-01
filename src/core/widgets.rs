@@ -75,6 +75,60 @@ impl Widget for TextBox {
     }
 }
 
+// Define a basic menu item widget
+struct MenuItem {
+    label: String,
+    on_select: Rc<dyn Fn()>,
+}
+
+impl MenuItem {
+    fn new(label: &str, on_select: Rc<dyn Fn()>) -> Self {
+        Self {
+            label: label.to_string(),
+            on_select,
+        }
+    }
+
+    fn select(&self) {
+        (self.on_select)();
+    }
+}
+
+impl Widget for MenuItem {
+    fn render(&self) {
+        println!("Menu Item: {}", self.label);
+    }
+}
+
+// Define a menu widget
+struct Menu {
+    items: Vec<MenuItem>,
+}
+
+impl Menu {
+    fn new() -> Self {
+        Self { items: Vec::new() }
+    }
+
+    fn add_item(&mut self, item: MenuItem) {
+        self.items.push(item);
+    }
+
+    fn select_item(&self, index: usize) {
+        if let Some(item) = self.items.get(index) {
+            item.select();
+        }
+    }
+}
+
+impl Widget for Menu {
+    fn render(&self) {
+        println!("Menu:");
+        for (index, item) in self.items.iter().enumerate() {
+            println!("  {}. {}", index + 1, item.label);
+        }
+    }
+}
 
 /*
 fn main() {
