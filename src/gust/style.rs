@@ -1,4 +1,3 @@
-// Define a struct for widget styling
 struct Styles {
     text_color: Option<String>,
     background_color: Option<String>,
