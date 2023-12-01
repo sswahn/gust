@@ -70,4 +70,4 @@ fn main() {
 ```
 
 ## License
-Gulp is [MIT Licensed](https://github.com/sswahn/gulp/blob/main/LICENSE)
+Gust is [MIT Licensed](https://github.com/sswahn/gust/blob/main/LICENSE)
