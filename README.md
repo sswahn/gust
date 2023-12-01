@@ -70,5 +70,4 @@ fn main() {
 ```
 
 ## License
-
-This project is [MIT License](LICENSE).
+Gulp is [MIT Licensed](https://github.com/sswahn/gulp/blob/main/LICENSE)
