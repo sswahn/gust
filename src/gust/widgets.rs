@@ -1,7 +1,5 @@
 use std::rc::Rc;
 
-// break widgets out into own files, and create default styles.
-
 // Define a trait for common properties and behavior of widgets
 trait Widget {
     fn render(&self);
@@ -46,7 +44,7 @@ impl Button {
             on_click,
         }
     }
-    fn set_styles(&mut self, styles: Styless) {
+    fn set_styles(&mut self, styles: HashMap<String, String>) {
         self.style = Some(styles);
     }
     fn click(&self) {
@@ -75,7 +73,7 @@ impl TextBox {
             on_change,
         }
     }
-    fn set_styles(&mut self, styles: Styles) {
+    fn set_styles(&mut self, styles: HashMap<String, String>) {
         self.styles = Some(styles);
     }
     fn set_text(&mut self, text: &str) {
@@ -105,7 +103,7 @@ impl MenuItem {
             on_select,
         }
     }
-    fn set_styles(&mut self, styles: Styles) {
+    fn set_styles(&mut self, styles: HashMap<String, String>) {
         self.styles = Some(styles);
     }
     fn select(&self) {
@@ -132,7 +130,7 @@ impl Menu {
             styles: None,
         }
     }
-    fn set_styles(&mut self, styles: Styles) {
+    fn set_styles(&mut self, styles: HashMap<String, String>) {
         self.styles = Some(styles);
     }
     fn add_item(&mut self, item: MenuItem) {
