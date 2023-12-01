@@ -70,26 +70,27 @@ impl Gust {
         Ok(())
     }
 
-    fn handle_window_event(&mut self, event: &WindowEvent, window_id: winit::window::WindowId) -> bool {
-        match event {
-            WindowEvent::CloseRequested if self.is_main_window(window_id) => true,
-            WindowEvent::Resized(_) => {
-                // Handle resize event if needed
-                false
-            }
-            WindowEvent::MouseInput { state, button, .. } if state == winit::event::ElementState::Pressed => {
-                // Handle mouse click event if needed
-                self.count += 1;
-                println!("Button clicked: {}", self.count);
-
-                // Emit a custom button click event
-                self.emit_custom_event(CustomEvent::CustomButtonClick);
-
-                false
-            }
-            _ => false,
+fn handle_window_event(&mut self, event: &WindowEvent, window_id: winit::window::WindowId) -> bool {
+    match event {
+        WindowEvent::CloseRequested if self.is_main_window(window_id) => true,
+        WindowEvent::Resized(_) => {
+            // Handle resize event if needed. handle this.
         }
+        WindowEvent::MouseInput { state, button, .. } if matches!(state, winit::event::ElementState::Pressed) => {
+            self.handle_mouse_click();
+        }
+        _ => (),
     }
+}
+
+fn handle_mouse_click(&mut self) {
+    self.count += 1;
+    println!("Button clicked: {}", self.count);
+
+    // Emit a custom button click event
+    self.emit_custom_event(CustomEvent::CustomButtonClick);
+}
+
 
     fn handle_event(&self, event: CustomEvent) {
         // Handle user-defined custom events
@@ -124,7 +125,8 @@ impl Gust {
 
             match &event {
                 Event::WindowEvent { event, window_id } => {
-                    if self.handle_window_event(event, *window_id) && self.windows.is_empty() {
+                    self.handle_window_event(event, *window_id)
+                    if self.windows.is_empty() {
                         *control_flow = ControlFlow::Exit; // If the last window is closed, exit the application
                     }
                 }
