@@ -43,12 +43,23 @@ impl Gust {
             title: title.to_string(),
             is_minimized: false,
         });
+
+        let windows_ref = &mut self.windows;
         event_loop.run(move |event, _, control_flow| {
             *control_flow = ControlFlow::Wait;
 
             match &event {
                 Event::WindowEvent { event, window_id } => {
                     // Handle window events
+                    if let WindowEvent::CloseRequested = event {
+                        // Remove the closed window
+                        windows_ref.retain(|window| window.id != *window_id);
+
+                        // If the last window is closed, exit the application
+                        if windows_ref.is_empty() {
+                            *control_flow = ControlFlow::Exit;
+                        }
+                    }
                 }
                 _ => (),
             }
@@ -107,9 +118,13 @@ impl Gust {
             match &event {
                 Event::WindowEvent { event, window_id } => {
                     if self.handle_window_event(event, *window_id) {
-                        *control_flow = ControlFlow::Exit;
+                        // If the last window is closed, exit the application
+                        if self.windows.len() == 0 {
+                            *control_flow = ControlFlow::Exit;
+                        }
                     }
                 }
+
                 Event::UserEvent(user_event) => {
                     // Handle user-defined custom events
                     self.handle_custom_event(*user_event);
