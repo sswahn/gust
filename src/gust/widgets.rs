@@ -20,7 +20,7 @@ impl Label {
             styles: None,
         }
     }
-    fn set_style(&mut self, styles: Styles) {
+    fn set_style(&mut self, styles: HashMap<String, String>) {
         self.styles = Some(styles);
     }
 }
