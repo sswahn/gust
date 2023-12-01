@@ -18,8 +18,8 @@ struct Window {
 }
 
 enum CustomEvent {
-    CustomButtonClick,
-    CustomTextChange,
+    ButtonClick,
+    TextChange(String),
     // Add more custom events as needed
 }
 
@@ -90,7 +90,7 @@ impl Gust {
         }
     }
 
-    fn handle_custom_event(&self, event: CustomEvent) {
+    fn handle_event(&self, event: CustomEvent) {
         // Handle user-defined custom events
         if let Some(handler) = self.custom_event_handlers.get(&event) {
             handler();
@@ -98,12 +98,11 @@ impl Gust {
     }
 
     fn add_event_handler(&mut self, event: CustomEvent, handler: Box<dyn Fn()>) {
-        // Add a user-defined custom event and its handler
         self.custom_event_handlers.insert(event, handler);
     }
 
     /* Example of adding a custom event handler
-    gust.add_event_handler(CustomEvent::CustomButtonClick, Box::new(|| {
+    gust.add_event_handler(CustomEvent::ButtonClick, Box::new(|| {
         println!("Handling custom button click event!");
     }));
     */
