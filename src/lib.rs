@@ -2,16 +2,16 @@ pub mod gust;
 
 // Re-export layout-related items
 pub mod layout {
-    pub use crate::layout::vertical_layout::VerticalLayout;
-    pub use crate::layout::horizontal_layout::HorizontalLayout;
-    pub use crate::layout::grid_layout::GridLayout;
+    pub use layout::vertical_layout::VerticalLayout; // expects layout as a directory, and  vertical_layout as a file.
+    pub use layout::horizontal_layout::HorizontalLayout;
+    pub use layout::grid_layout::GridLayout;
 }
 
 // Re-export widget-related items
 pub mod widgets {
-    pub use crate::widgets::button::Button;
-    pub use crate::widgets::label::Label;
-    pub use crate::widgets::text_box::TextBox;
-    pub use crate::widgets::menu::Menu;
-    pub use crate::widgets::menu_item::MenuItem;
+    pub use widgets::button::Button;
+    pub use widgets::label::Label;
+    pub use widgets::text_box::TextBox;
+    pub use widgets::menu::Menu;
+    pub use widgets::menu_item::MenuItem;
 }
