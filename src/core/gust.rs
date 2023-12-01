@@ -32,7 +32,7 @@ impl Gust {
         }
     }
 
-    fn create_window(&mut self, event_loop: &mut EventLoop<()>, title: &str) {
+    fn create_window(&mut self, event_loop: &mut EventLoop<()>, title: &str) -> Result<(), Box<dyn Error>> {
         let window = WindowBuilder::new()
             .with_title(title)
             .with_resizable(true)
@@ -67,6 +67,7 @@ impl Gust {
                 _ => (),
             }
         });
+        Ok(())
     }
 
     fn handle_window_event(&mut self, event: &WindowEvent, window_id: winit::window::WindowId) -> bool {
@@ -110,8 +111,18 @@ impl Gust {
 
     fn run(&mut self) {
         let event_loop = EventLoop::new();
-        self.create_window(&event_loop, "Main Window");
+        match self.create_window(&event_loop, "Main Window") {
+            Ok(_) => {
+                self.run_event_loop(event_loop)
+            }
+            Err(err) => {
+                eprintln!("Error creating window: {}", err);
+                // Handle the error, possibly by gracefully exiting the application
+            }
+        }
+    }
 
+    fn run_event_loop(&mut self, event_loop) {
         event_loop.run(move |event, _, control_flow| {
             *control_flow = ControlFlow::Wait;
 
