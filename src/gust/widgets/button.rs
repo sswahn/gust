@@ -9,6 +9,10 @@ pub struct Button {
     on_click: Rc<dyn Fn()>,
 }
 
+// consider handling styles with methods
+// button.background('black')
+// button.color('white')
+
 impl Button {
     fn new(label: &str, on_click: Rc<dyn Fn()>) -> Self {
         Self {
