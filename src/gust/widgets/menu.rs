@@ -3,7 +3,7 @@ mod widget;
 use widget::Widget;
 
 // Define a menu widget
-struct Menu {
+pub struct Menu {
     items: Vec<MenuItem>,
     styles: Option<Styles>,
 }
