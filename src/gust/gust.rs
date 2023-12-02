@@ -60,10 +60,8 @@ impl Gust {
                 WindowEvent::MouseInput { state, button, .. } if *state == ElementState::Pressed => {
                     //self.handle_mouse_click();
                 }
-                WindowEvent::KeyboardInput { input, .. } => {
-                    if let Some(VirtualKeyCode::Escape) = input.virtual_keycode {
-                        *control_flow = ControlFlow::Exit;
-                    }
+                WindowEvent::KeyboardInput => {
+
                 }
                 _ => (),
             },
