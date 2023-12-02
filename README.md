@@ -33,7 +33,7 @@ let on_click = || {
 
 // Define an on change callback for textbox
 let on_change = |text| {
-    println!("Text Box Changed: {}", text)
+    println!("Text changed: {}", text)
 };
 
 
