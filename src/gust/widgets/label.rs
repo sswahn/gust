@@ -4,7 +4,7 @@ use widget::Widget;
 
 
 // Define a basic label widget
-struct Label {
+pub struct Label {
     text: String,
     styles: Option<Styles>
 }
