@@ -26,13 +26,13 @@ struct MyApp {
     gust: Gust,
 }
 
-// Define a button on click callback
-let on_button_click = || {
+// Define an on click callback for button
+let on_click = || {
     println!("Button Clicked");
 };
 
-// Define a textbox on change callback
-let on_text_change = |text| {
+// Define an on change callback for textbox
+let on_change = |text| {
     println!("Text Box Changed: {}", text)
 };
 
@@ -46,8 +46,8 @@ impl MyApp {
         self.gust.create_window("Main Window");
 
         // Create a button with a closure
-        let button = Button::new("Click Me", on_button_click);
-        let text_box = TextBox::new(on_text_change);
+        let button = Button::new("Click Me", on_click);
+        let text_box = TextBox::new(on_change);
         let label = Label::new("Hello, Rust!");
 
         // Create custom styles
