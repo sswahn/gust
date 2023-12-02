@@ -1,8 +1,9 @@
 use std::error::Error;
+use winit::event::VirtualKeyCode;
 use winit::{
     event::{Event, WindowEvent, ElementState, MouseButton}, // where is MouseButton being handled?
     event_loop::{ControlFlow, EventLoop},
-    event::keyboard::VirtualKeyCode,  // Import VirtualKeyCode from the keyboard module
+    //event::keyboard::VirtualKeyCode,  // Import VirtualKeyCode from the keyboard module
     platform::windows::WindowBuilderExtWindows,
     window::WindowBuilder,
 };
@@ -57,7 +58,7 @@ impl Gust {
                     // Handle resize event if needed
                 }
                 WindowEvent::MouseInput { state, button, .. } if *state == ElementState::Pressed => {
-                    self.handle_mouse_click();
+                    //self.handle_mouse_click();
                 }
                 WindowEvent::KeyboardInput { input, .. } => {
                     if let Some(VirtualKeyCode::Escape) = input.virtual_keycode {
@@ -73,9 +74,8 @@ impl Gust {
         }
     }
 
-
     fn run(&mut self) {
-        let event_loop = EventLoop::new();
+        let mut event_loop = EventLoop::new();
         self.create_window(&event_loop, "Main Window").unwrap_or_else(|err| {
             eprintln!("Error creating window: {}", err);
         });
