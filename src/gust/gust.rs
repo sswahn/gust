@@ -8,7 +8,7 @@ use winit::{
     window::WindowBuilder,
 };
 
-struct Gust {
+pub struct Gust {
     windows: Vec<Window>,
     count: usize,
 }
