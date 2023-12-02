@@ -17,6 +17,7 @@ A simple GUI for Rust applications.
 ## Usage
 
 ```rust
+mod gust;
 use gust::Gust;
 use gust::layout::{VerticalLayout, HorizontalLayout, GridLayout};
 use gust::widgets::{Button, Label, TextBox, Menu, MenuItem};
