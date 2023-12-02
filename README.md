@@ -26,12 +26,12 @@ struct MyApp {
     gust: Gust,
 }
 
-// Define a button click callback
+// Define a button on click callback
 let on_button_click = || {
     println!("Button Clicked");
 };
 
-// Define a button click callback
+// Define a textbox on change callback
 let on_text_change = |text| {
     println!("Text Box Changed: {}", text)
 };
