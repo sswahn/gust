@@ -1,3 +1,3 @@
-mod vertical_layout;
-mod horizontal_layout;
-mod grid_layout;
+pub mod vertical_layout;
+pub mod horizontal_layout;
+pub mod grid_layout;
