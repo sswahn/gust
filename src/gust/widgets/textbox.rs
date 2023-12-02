@@ -3,7 +3,7 @@ mod widget;
 use widget::Widget;
 
 // Define a basic text box widget
-struct TextBox {
+pub struct TextBox {
     text: String,
     styles: Option<Styles>,
     on_change: Rc<dyn Fn(&str)>,
