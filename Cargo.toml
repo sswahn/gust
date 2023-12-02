@@ -8,6 +8,7 @@ description = "A simple GUI for Rust applications."
 
 [lib]
 name = "Gust"
+path = "src/lib.rs"
 
 [dependencies]
 winit = "0.29.4"
