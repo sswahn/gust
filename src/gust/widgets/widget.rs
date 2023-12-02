@@ -1,3 +1,3 @@
-trait Widget {
+pub trait Widget {
     fn render(&self);
 }
