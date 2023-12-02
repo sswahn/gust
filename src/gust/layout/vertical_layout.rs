@@ -2,7 +2,7 @@ mod layout_manager;
 use layout_manager::LayoutManager;
 
 // Define a basic vertical layout manager
-struct VerticalLayout;
+pub struct VerticalLayout;
 
 impl LayoutManager for VerticalLayout {
     fn arrange_widgets(&self, widgets: &[&dyn Widget]) {
