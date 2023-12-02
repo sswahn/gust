@@ -21,6 +21,7 @@ mod gust;
 use gust::Gust;
 use gust::layout::{VerticalLayout, HorizontalLayout, GridLayout};
 use gust::widgets::{Button, Label, TextBox, Menu, MenuItem};
+use std::collections::HashMap;
 
 struct MyApp {
     gust: Gust,
