@@ -1,4 +1,4 @@
 // Define a trait for layout managers
-trait LayoutManager {
+pub trait LayoutManager {
     fn arrange_widgets(&self, widgets: &[&dyn Widget]);
 }
