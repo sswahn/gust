@@ -3,7 +3,7 @@ mod widget;
 use widget::Widget;
 
 // Define a basic button widget
-struct Button {
+pub struct Button {
     label: String,
     styles: Option<Styles>,
     on_click: Rc<dyn Fn()>,
