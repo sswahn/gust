@@ -3,7 +3,7 @@ mod widget;
 use widget::Widget;
 
 // Define a basic menu item widget
-struct MenuItem {
+pub struct MenuItem {
     label: String,
     styles: Option<Styles>,
     on_select: Rc<dyn Fn()>,
