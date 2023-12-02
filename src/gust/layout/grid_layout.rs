@@ -2,7 +2,7 @@ mod layout_manager;
 use layout_manager::LayoutManager;
 
 // Define a basic grid layout manager
-struct GridLayout {
+pub struct GridLayout {
     columns: usize,
 }
 
