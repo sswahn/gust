@@ -1,8 +1,8 @@
 use std::error::Error;
-use winit::event::VirtualKeyCode;
-use winit::platform::windows::WindowBuilderExtWindows;
+use winit::event::keyboard::VirtualKeyCode;
+//use winit::platform::windows::WindowBuilderExtWindows;
 use winit::{
-    event::{Event, WindowEvent, ElementState, MouseButton}, // where is MouseButton being handled?
+    event::{Event, WindowEvent, ElementState} //, MouseButton}, // where is MouseButton being handled?
     event_loop::{ControlFlow, EventLoop},
     //event::keyboard::VirtualKeyCode,  // Import VirtualKeyCode from the keyboard module
    // platform::windows::WindowBuilderExtWindows,
@@ -49,12 +49,13 @@ impl Gust {
     fn handle_event(&mut self, event: &Event<()>, control_flow: &mut ControlFlow) {
         match event {
             Event::WindowEvent { event, window_id, .. } => match event {
+                /* not sure how to close winit windows
                 WindowEvent::CloseRequested => {
                     self.windows.retain(|window| window.id != *window_id);
                     if self.windows.is_empty() {
                         *control_flow = ControlFlow::Exit;
                     }
-                }
+                }*/
                 WindowEvent::Resized(_) => {
                     // Handle resize event if needed
                 }
@@ -70,9 +71,18 @@ impl Gust {
                         _ => (),
                     }
                 }
-
-                WindowEvent::KeyboardInput => {
-
+                WindowEvent::KeyboardInput { input, .. } => {
+                    if let Some(keycode) = input.virtual_keycode {
+                        match keycode {
+                            VirtualKeyCode::A => {
+                                // Handle the 'A' key press
+                            }
+                            VirtualKeyCode::B => {
+                                // Handle the 'B' key press
+                            }
+                            _ => (),
+                        }
+                    }
                 }
                 _ => (),
             },
@@ -85,7 +95,7 @@ impl Gust {
 
     fn run(&mut self) {
         let mut event_loop = EventLoop::new();
-        self.create_window(&event_loop, "Main Window").unwrap_or_else(|err| {
+        self.create_window(&mut event_loop, "Main Window").unwrap_or_else(|err| {
             eprintln!("Error creating window: {}", err);
         });
         event_loop.run(move |event, _, control_flow| {
