@@ -47,11 +47,11 @@ impl Gust {
     }
 
 
-    fn handle_event(&mut self, event: &Event<()>, window: &Window, control_flow: &mut ControlFlow) {
+    fn handle_event(&mut self, event: &Event<()>, control_flow: &mut ControlFlow) {
         match event {
             Event::WindowEvent { event, window_id, .. } => match event {
                 WindowEvent::CloseRequested => {
-                    window.exit();
+                    control_flow.exit();
                 },
                 WindowEvent::Resized(_) => {
                     // Handle resize event if needed
@@ -96,8 +96,8 @@ impl Gust {
             eprintln!("Error creating window: {}", err);
         });
         event_loop.run(move |event, control_flow| {
-            *control_flow = ControlFlow::Wait;
-            self.handle_event(&event, &window, control_flow);
+            //*control_flow = ControlFlow::Wait;
+            self.handle_event(&event, control_flow);
         });
     }
 }
