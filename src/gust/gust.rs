@@ -59,8 +59,18 @@ impl Gust {
                     // Handle resize event if needed
                 }
                 WindowEvent::MouseInput { state, button, .. } if *state == ElementState::Pressed => {
-                    //self.handle_mouse_click();
+                    // Handle mouse button press, e.g., check which button was pressed
+                    match button {
+                        MouseButton::Left => {
+                            // Handle left mouse button press
+                        }
+                        MouseButton::Right => {
+                            // Handle right mouse button press
+                        }
+                        _ => (),
+                    }
                 }
+
                 WindowEvent::KeyboardInput => {
 
                 }
