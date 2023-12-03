@@ -31,8 +31,7 @@ impl Gust {
             .with_resizable(true)
             .with_decorations(true)
             .build(&event_loop)
-            .unwrap()
-            .expect("Failed to create window");
+            .unwrap()?;
 
         self.windows.push(Window {
             id: window.id(),
@@ -42,9 +41,9 @@ impl Gust {
         Ok(())
     }
 
-    fn handle_event(&mut self, event: &Event<()>, elwt) {
+    fn handle_event(&mut self, event: &Event<()>, elwt: &EventLoop<()>) {
         match event {
-            Event::WindowEvent { event: WindowEvent, .. } => {
+            Event::WindowEvent { event, .. } => {
                 match event {
                     WindowEvent::CloseRequested => {
                         elwt.exit();
@@ -93,7 +92,7 @@ impl Gust {
             eprintln!("Error creating window: {}", err);
         });
         event_loop.set_control_flow(ControlFlow::Wait);
-        event_loop.run(move |event, elwt| {
+        event_loop.run(|event, elwt| {
             self.handle_event(&event, &elwt);
         });
     }
