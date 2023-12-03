@@ -1,14 +1,10 @@
-use std::error::Error;
-use winit::keyboard::VirtualKeyCode;
-use winit::event::MouseButton;
-//use winit::platform::windows::WindowBuilderExtWindows;
 use winit::{
-    event::{Event, WindowEvent, ElementState}, // where is MouseButton being handled?
+    event::{Event, WindowEvent, MouseButton, ElementState},
     event_loop::{ControlFlow, EventLoop},
-    //event::keyboard::VirtualKeyCode,  // Import VirtualKeyCode from the keyboard module
-   // platform::windows::WindowBuilderExtWindows,
-    window::WindowBuilder,
+    window::{WindowBuilder, WindowId},
+    keyboard::KeyCode,
 };
+use std::error::Error;
 
 pub struct Gust {
     windows: Vec<Window>,
@@ -16,7 +12,7 @@ pub struct Gust {
 }
 
 struct Window {
-    id: winit::window::WindowId,
+    id: WindowId,
     title: String,
     is_minimized: bool,
 }
@@ -35,6 +31,7 @@ impl Gust {
             .with_resizable(true)
             .with_decorations(true)
             .build(&event_loop)
+            .unwrap()
             .expect("Failed to create window");
 
         let window_id = window.id();
@@ -46,42 +43,43 @@ impl Gust {
         Ok(())
     }
 
-
-    fn handle_event(&mut self, event: &Event<()>, control_flow: &mut ControlFlow) {
+    fn handle_event(&mut self, event: &Event<()>, elwt) {
         match event {
-            Event::WindowEvent { event, window_id, .. } => match event {
-                WindowEvent::CloseRequested => {
-                    control_flow.exit();
-                },
-                WindowEvent::Resized(_) => {
-                    // Handle resize event if needed
-                }
-                WindowEvent::MouseInput { state, button, .. } if *state == ElementState::Pressed => {
-                    // Handle mouse button press, e.g., check which button was pressed
-                    match button {
-                        MouseButton::Left => {
-                            // Handle left mouse button press
-                        }
-                        MouseButton::Right => {
-                            // Handle right mouse button press
-                        }
-                        _ => (),
+            Event::WindowEvent { event: WindowEvent, ..  => {
+                match event {
+                    WindowEvent::CloseRequested => {
+                        elwt.exit();
+                    },
+                    WindowEvent::Resized(_) => {
+                        // Handle resize event if needed
                     }
-                }
-                WindowEvent::KeyboardInput { input, .. } => {
-                    if let Some(keycode) = input.virtual_keycode {
-                        match keycode {
-                            VirtualKeyCode::A => {
-                                // Handle the 'A' key press
+                    WindowEvent::MouseInput { state, button, .. } if *state == ElementState::Pressed => {
+                        // Handle mouse button press, e.g., check which button was pressed
+                        match button {
+                            MouseButton::Left => {
+                                // Handle left mouse button press
                             }
-                            VirtualKeyCode::B => {
-                                // Handle the 'B' key press
+                            MouseButton::Right => {
+                                // Handle right mouse button press
                             }
                             _ => (),
                         }
                     }
-                }
-                _ => (),
+                    WindowEvent::KeyboardInput { event, .. } => {
+                        if let Some(keycode) = event.physical_key {
+                            match keycode {
+                                KeyCode::A => {
+                                    // Handle the 'A' key press
+                                }
+                                KeyCode::B => {
+                                    // Handle the 'B' key press
+                                }
+                                _ => (),
+                            }
+                        }
+                    }
+                    _ => (),
+                },
             },
             Event::UserEvent(user_event) => {
                 // Handle other predefined user events if needed
@@ -95,9 +93,9 @@ impl Gust {
         self.create_window(&event_loop, "Main Window").unwrap_or_else(|err| {
             eprintln!("Error creating window: {}", err);
         });
-        event_loop.run(move |event, control_flow| {
-            //*control_flow = ControlFlow::Wait;
-            self.handle_event(&event, control_flow);
+        event_loop.set_control_flow(ControlFlow::Wait);
+        event_loop.run(move |event, elwt| {
+            self.handle_event(&event, &elwt);
         });
     }
 }
