@@ -2,7 +2,7 @@ use std::error::Error;
 use winit::event::keyboard::VirtualKeyCode;
 //use winit::platform::windows::WindowBuilderExtWindows;
 use winit::{
-    event::{Event, WindowEvent, ElementState} //, MouseButton}, // where is MouseButton being handled?
+    event::{Event, WindowEvent, ElementState}, //, MouseButton}, // where is MouseButton being handled?
     event_loop::{ControlFlow, EventLoop},
     //event::keyboard::VirtualKeyCode,  // Import VirtualKeyCode from the keyboard module
    // platform::windows::WindowBuilderExtWindows,
@@ -28,12 +28,12 @@ impl Gust {
         }
     }
 
-    fn create_window(&mut self, event_loop: &mut EventLoop<()>, title: &str) -> Result<(), Box<dyn Error>> {
+    fn create_window(&mut self, event_loop: &EventLoop<()>, title: &str) -> Result<(), Box<dyn Error>> {
         let window = WindowBuilder::new()
             .with_title(title)
             .with_resizable(true)
             .with_decorations(true)
-            .build(event_loop)
+            .build(&event_loop)
             .expect("Failed to create window");
 
         let window_id = window.id();
@@ -46,16 +46,12 @@ impl Gust {
     }
 
 
-    fn handle_event(&mut self, event: &Event<()>, control_flow: &mut ControlFlow) {
+    fn handle_event(&mut self, event: &Event<()>, window: &Window, control_flow: &mut ControlFlow) {
         match event {
             Event::WindowEvent { event, window_id, .. } => match event {
-                /* not sure how to close winit windows
                 WindowEvent::CloseRequested => {
-                    self.windows.retain(|window| window.id != *window_id);
-                    if self.windows.is_empty() {
-                        *control_flow = ControlFlow::Exit;
-                    }
-                }*/
+                    window.exit();
+                },
                 WindowEvent::Resized(_) => {
                     // Handle resize event if needed
                 }
@@ -94,13 +90,13 @@ impl Gust {
     }
 
     fn run(&mut self) {
-        let mut event_loop = EventLoop::new();
-        self.create_window(&mut event_loop, "Main Window").unwrap_or_else(|err| {
+        let event_loop = EventLoop::new().unwrap();
+        self.create_window(&event_loop, "Main Window").unwrap_or_else(|err| {
             eprintln!("Error creating window: {}", err);
         });
-        event_loop.expect("Failed to create event loop").run(move |event, _, control_flow| {
+        event_loop.run(move |event, window, control_flow| {
             *control_flow = ControlFlow::Wait;
-            self.handle_event(&event, control_flow);
+            self.handle_event(&event, &window, control_flow);
         });
     }
 }
