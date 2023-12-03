@@ -98,7 +98,7 @@ impl Gust {
         self.create_window(&mut event_loop, "Main Window").unwrap_or_else(|err| {
             eprintln!("Error creating window: {}", err);
         });
-        event_loop.run(move |event, _, control_flow| {
+        event_loop.expect("Failed to create event loop").run(move |event, _, control_flow| {
             *control_flow = ControlFlow::Wait;
             self.handle_event(&event, control_flow);
         });
