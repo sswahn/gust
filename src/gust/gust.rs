@@ -34,9 +34,8 @@ impl Gust {
             .unwrap()
             .expect("Failed to create window");
 
-        let window_id = window.id();
         self.windows.push(Window {
-            id: window_id,
+            id: window.id(),
             title: title.to_string(),
             is_minimized: false,
         });
@@ -45,7 +44,7 @@ impl Gust {
 
     fn handle_event(&mut self, event: &Event<()>, elwt) {
         match event {
-            Event::WindowEvent { event: WindowEvent, ..  => {
+            Event::WindowEvent { event: WindowEvent, .. } => {
                 match event {
                     WindowEvent::CloseRequested => {
                         elwt.exit();
