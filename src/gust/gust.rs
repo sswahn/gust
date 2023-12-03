@@ -1,8 +1,9 @@
 use std::error::Error;
-use winit::event::VirtualKeyCode;
+use winit::keyboard::VirtualKeyCode;
+use winit::event::MouseButton;
 //use winit::platform::windows::WindowBuilderExtWindows;
 use winit::{
-    event::{Event, WindowEvent, ElementState, MouseButton}, // where is MouseButton being handled?
+    event::{Event, WindowEvent, ElementState}, // where is MouseButton being handled?
     event_loop::{ControlFlow, EventLoop},
     //event::keyboard::VirtualKeyCode,  // Import VirtualKeyCode from the keyboard module
    // platform::windows::WindowBuilderExtWindows,
@@ -94,7 +95,7 @@ impl Gust {
         self.create_window(&event_loop, "Main Window").unwrap_or_else(|err| {
             eprintln!("Error creating window: {}", err);
         });
-        event_loop.run(move |event, window, control_flow| {
+        event_loop.run(move |event, control_flow| {
             *control_flow = ControlFlow::Wait;
             self.handle_event(&event, &window, control_flow);
         });
