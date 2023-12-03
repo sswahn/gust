@@ -1,6 +1,6 @@
 use winit::{
     event::{Event, WindowEvent, MouseButton, ElementState},
-    event_loop::{ControlFlow, EventLoop},
+    event_loop::{ControlFlow, EventLoop, EventLoopWindowTarget},
     window::{WindowBuilder, WindowId},
     keyboard::KeyCode,
 };
