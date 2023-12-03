@@ -31,7 +31,7 @@ impl Gust {
             .with_resizable(true)
             .with_decorations(true)
             .build(&event_loop)
-            .unwrap()?;
+            .unwrap();
 
         self.windows.push(Window {
             id: window.id(),
@@ -41,7 +41,7 @@ impl Gust {
         Ok(())
     }
 
-    fn handle_event(&mut self, event: &Event<()>, elwt: &EventLoop<()>) {
+    fn handle_event(&mut self, event: &Event<()>, elwt: &EventLoopWindowTarget<()>) {
         match event {
             Event::WindowEvent { event, .. } => {
                 match event {
@@ -64,6 +64,8 @@ impl Gust {
                         }
                     }
                     WindowEvent::KeyboardInput { event, .. } => {
+                        println!("event.physical_key: {}", event.physical_key);
+
                         if let Some(keycode) = event.physical_key {
                             match keycode {
                                 KeyCode::A => {
@@ -77,7 +79,7 @@ impl Gust {
                         }
                     }
                     _ => (),
-                },
+                }
             },
             Event::UserEvent(user_event) => {
                 // Handle other predefined user events if needed
@@ -93,7 +95,7 @@ impl Gust {
         });
         event_loop.set_control_flow(ControlFlow::Wait);
         event_loop.run(|event, elwt| {
-            self.handle_event(&event, &elwt);
+            self.handle_event(&event, elwt);
         });
     }
 }
