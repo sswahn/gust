@@ -61,7 +61,6 @@ impl Gust {
                             MouseButton::Right => {
                                 // Handle right mouse button press
                             }
-                            _ => (),
                         }
                     }
                     WindowEvent::KeyboardInput { event, .. } => {
@@ -75,18 +74,32 @@ impl Gust {
                                         println!("1");
                                     }
                                 }
-                                _ => (),
                             }
                         }
-                    }                    
-                    _ => (),
+                    }
+                    WindowEvent::MouseWheel { delta, .. } => match delta {
+                        winit::event::MouseScrollDelta::LineDelta(x, y) => {
+                            println!("mouse wheel Line Delta: ({x},{y})");
+                            let pixels_per_line = 120.0;
+                            let mut pos = window.outer_position().unwrap();
+                            pos.x += (x * pixels_per_line) as i32;
+                            pos.y += (y * pixels_per_line) as i32;
+                            window.set_outer_position(pos)
+                        }
+                        winit::event::MouseScrollDelta::PixelDelta(p) => {
+                            println!("mouse wheel Pixel Delta: ({},{})", p.x, p.y);
+                            let mut pos = window.outer_position().unwrap();
+                            pos.x += p.x as i32;
+                            pos.y += p.y as i32;
+                            window.set_outer_position(pos)
+                        }
+                    }
                 }
             },
             Event::UserEvent(user_event) => {
                 // Handle other predefined user events if needed
                 println!("UserEvent user_event: {:?}", user_event);
             }
-            _ => (),
         }
     }
 
