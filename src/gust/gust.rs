@@ -96,8 +96,8 @@ impl Gust {
             eprintln!("Error creating window: {}", err);
         });
         event_loop.set_control_flow(ControlFlow::Wait);
-        event_loop.run(|event, elwt| {
-            self.handle_event(&event, elwt);
+        event_loop.run(|event, elwt| self.handle_event(&event, elwt)).unwrap_or_else(|err| {
+            eprintln!("Error during event loop: {}", err);
         });
     }
 }
