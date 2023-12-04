@@ -21,7 +21,7 @@ struct Window {
 impl Gust {
     fn new() -> Self {
         Self {
-            windows: Vec::new(),
+            windows: Vec::new(), // perhaps use a HashMap
             count: 0,
         }
     }
