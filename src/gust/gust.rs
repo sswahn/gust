@@ -1,5 +1,5 @@
 use winit::{
-    event::{Event, WindowEvent, MouseButton, ElementState},
+    event::{ElementState, Event, MouseButton, MouseScrollDelta, WindowEvent},
     event_loop::{ControlFlow, EventLoop, EventLoopWindowTarget},
     keyboard::{Key, ModifiersState},
     platform::modifier_supplement::KeyEventExtModifierSupplement,
@@ -44,54 +44,56 @@ impl Gust {
 
     fn handle_event(&mut self, event: &Event<()>, elwt: &EventLoopWindowTarget<()>) {
         match event {
-            Event::WindowEvent { event, .. } => {
-                match event {
-                    WindowEvent::CloseRequested => {
-                        elwt.exit();
-                    },
-                    WindowEvent::Resized(_) => {
-                        // Handle resize event if needed
-                    }
-                    WindowEvent::MouseInput { state, button, .. } if *state == ElementState::Pressed => {
-                        // Handle mouse button press, e.g., check which button was pressed
-                        match button {
-                            MouseButton::Left => {
-                                // Handle left mouse button press
-                            }
-                            MouseButton::Right => {
-                                // Handle right mouse button press
-                            }
+            Event::WindowEvent { event, .. } => match event {
+                WindowEvent::CloseRequested => {
+                    elwt.exit();
+                },
+                WindowEvent::Resized(_) => {
+                    // Handle resize event if needed
+                }
+                WindowEvent::MouseInput { state, button, .. } if *state == ElementState::Pressed => {
+                    // Handle mouse button press, e.g., check which button was pressed
+                    match button {
+                        MouseButton::Left => {
+                            // Handle left mouse button press
+                        }
+                        MouseButton::Right => {
+                            // Handle right mouse button press
                         }
                     }
-                    WindowEvent::KeyboardInput { event, .. } => {
-                        if event.state == ElementState::Pressed && !event.repeat {
-                            match event.key_without_modifiers().as_ref() {
-                                Key::Character("1") => {
-                                    let modifiers = ModifiersState::default();
-                                    if modifiers.shift_key() {
-                                        println!("Shift + 1 | logical_key: {:?}", event.logical_key);
-                                    } else {
-                                        println!("1");
-                                    }
+                }
+                WindowEvent::KeyboardInput { event, .. } => {
+                    if event.state == ElementState::Pressed && !event.repeat {
+                        match event.key_without_modifiers().as_ref() {
+                            Key::Character("1") => {
+                                let modifiers = ModifiersState::default();
+                                if modifiers.shift_key() {
+                                    println!("Shift + 1 | logical_key: {:?}", event.logical_key);
+                                } else {
+                                    println!("1");
                                 }
                             }
                         }
                     }
-                    WindowEvent::MouseWheel { delta, .. } => match delta {
-                        winit::event::MouseScrollDelta::LineDelta(x, y) => {
-                            println!("mouse wheel Line Delta: ({x},{y})");
-                            let pixels_per_line = 120.0;
-                            let mut pos = window.outer_position().unwrap();
-                            pos.x += (x * pixels_per_line) as i32;
-                            pos.y += (y * pixels_per_line) as i32;
-                            window.set_outer_position(pos)
-                        }
-                        winit::event::MouseScrollDelta::PixelDelta(p) => {
-                            println!("mouse wheel Pixel Delta: ({},{})", p.x, p.y);
-                            let mut pos = window.outer_position().unwrap();
-                            pos.x += p.x as i32;
-                            pos.y += p.y as i32;
-                            window.set_outer_position(pos)
+                }
+                WindowEvent::MouseWheel { delta, device_id, .. } => {
+                    if let Some(window) = self.windows.iter_mut().find(|w| &w.id == *device_id) {
+                        match delta {
+                            MouseScrollDelta::LineDelta(x, y) => {
+                                println!("mouse wheel Line Delta: ({x},{y})");
+                                let pixels_per_line = 120.0;
+                                let mut pos = window.outer_position().unwrap();
+                                pos.x += (x * pixels_per_line) as i32;
+                                pos.y += (y * pixels_per_line) as i32;
+                                window.set_outer_position(pos)
+                            }
+                            MouseScrollDelta::PixelDelta(p) => {
+                                println!("mouse wheel Pixel Delta: ({},{})", p.x, p.y);
+                                let mut pos = window.outer_position().unwrap();
+                                pos.x += p.x as i32;
+                                pos.y += p.y as i32;
+                                window.set_outer_position(pos)
+                            }
                         }
                     }
                 }
