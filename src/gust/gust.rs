@@ -28,7 +28,6 @@ impl Gust {
             .with_decorations(true)
             .build(&event_loop)
             .unwrap();
-
         self.windows.insert(window.id(), window);
         Ok(())
     }
