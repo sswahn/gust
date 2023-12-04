@@ -64,18 +64,19 @@ impl Gust {
                         }
                     }
                     WindowEvent::KeyboardInput { event, .. } => {
-                        if let Some(key_code) = event.physical_key.key_code() {
-                            match key_code {
-                                KeyCode::KeyA => {
-                                    // Handle the 'A' key press
-                                }
-                                KeyCode::KeyB => {
-                                    // Handle the 'B' key press
+                        if event.state == ElementState::Pressed && !event.repeat {
+                            match event.key_without_modifiers().as_ref() {
+                                Key::Character("1") => {
+                                    if modifiers.shift_key() {
+                                        println!("Shift + 1 | logical_key: {:?}", event.logical_key);
+                                    } else {
+                                        println!("1");
+                                    }
                                 }
                                 _ => (),
                             }
                         }
-                    }
+                    }                    
                     _ => (),
                 }
             },
