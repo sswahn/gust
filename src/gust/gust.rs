@@ -68,7 +68,7 @@ impl Gust {
                         if event.state == ElementState::Pressed && !event.repeat {
                             match event.key_without_modifiers().as_ref() {
                                 Key::Character("1") => {
-                                    let mut modifiers = ModifiersState::default();
+                                    let modifiers = ModifiersState::default();
                                     if modifiers.shift_key() {
                                         println!("Shift + 1 | logical_key: {:?}", event.logical_key);
                                     } else {
@@ -84,6 +84,7 @@ impl Gust {
             },
             Event::UserEvent(user_event) => {
                 // Handle other predefined user events if needed
+                println!("UserEvent user_event: {:?}", user_event);
             }
             _ => (),
         }
