@@ -80,7 +80,6 @@ impl Gust {
                     if let Some(window) = self.windows.iter_mut().find(|w| &w.id == *device_id) {
                         match delta {
                             MouseScrollDelta::LineDelta(x, y) => {
-                                println!("mouse wheel Line Delta: ({x},{y})");
                                 let pixels_per_line = 120.0;
                                 let mut pos = window.outer_position().unwrap();
                                 pos.x += (x * pixels_per_line) as i32;
@@ -88,7 +87,6 @@ impl Gust {
                                 window.set_outer_position(pos)
                             }
                             MouseScrollDelta::PixelDelta(p) => {
-                                println!("mouse wheel Pixel Delta: ({},{})", p.x, p.y);
                                 let mut pos = window.outer_position().unwrap();
                                 pos.x += p.x as i32;
                                 pos.y += p.y as i32;
