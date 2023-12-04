@@ -9,14 +9,8 @@ use std::collections::HashMap;
 use std::error::Error;
 
 pub struct Gust {
-    windows: Vec<Window>,
+    windows: HashMap<Window>,
     count: usize,
-}
-
-struct Window {
-    id: WindowId,
-    title: String,
-    is_minimized: bool,
 }
 
 impl Gust {
