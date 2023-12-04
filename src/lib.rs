@@ -1,5 +1,5 @@
 // Import the internal modules
-pub mod gust;
+mod gust;
 
 // Re-export the main types
 //pub use gust::Gust;
