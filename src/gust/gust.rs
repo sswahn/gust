@@ -64,8 +64,8 @@ impl Gust {
                         }
                     }
                     WindowEvent::KeyboardInput { event, .. } => {
-                        if let Some(code) = event.physical_key.code() {
-                            match code {
+                        if let Some(key_code) = event.physical_key.key_code() {
+                            match key_code {
                                 KeyCode::KeyA => {
                                     // Handle the 'A' key press
                                 }
