@@ -5,6 +5,7 @@ use winit::{
     platform::modifier_supplement::KeyEventExtModifierSupplement,
     window::{WindowBuilder, WindowId},
 };
+use std::collections::HashMap;
 use std::error::Error;
 
 pub struct Gust {
@@ -21,7 +22,7 @@ struct Window {
 impl Gust {
     fn new() -> Self {
         Self {
-            windows: Vec::new(), // perhaps use a HashMap
+            windows: HashMap::new(),
             count: 0,
         }
     }
@@ -34,11 +35,12 @@ impl Gust {
             .build(&event_loop)
             .unwrap();
 
-        self.windows.push(Window {
-            id: window.id(),
+        let window_id = window.id()
+        self.windows.insert(window_id, Window {
+            id: window_id,
             title: title.to_string(),
             is_minimized: false,
-        });
+        })
         Ok(())
     }
 
