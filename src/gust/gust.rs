@@ -35,12 +35,7 @@ impl Gust {
             .build(&event_loop)
             .unwrap();
 
-        let window_id = window.id()
-        self.windows.insert(window_id, Window {
-            id: window_id,
-            title: title.to_string(),
-            is_minimized: false,
-        })
+        self.windows.insert(window.id(), window);
         Ok(())
     }
 
@@ -53,33 +48,46 @@ impl Gust {
                 WindowEvent::Resized(_) => {
                     // Handle resize event if needed
                 }
-                WindowEvent::MouseInput { state, button, .. } if *state == ElementState::Pressed => {
-                    // Handle mouse button press, e.g., check which button was pressed
-                    match button {
-                        MouseButton::Left => {
-                            // Handle left mouse button press
-                        }
-                        MouseButton::Right => {
-                            // Handle right mouse button press
-                        }
+                WindowEvent::MouseInput { state, button, .. } => match state {
+                    ElementState::Pressed => {
+                        match button {
+                            MouseButton::Left => {
+                                // Handle left mouse button press
+                            }
+                            MouseButton::Right => {
+                                // Handle right mouse button press
+                            }
+                    }
+                    ElementState::Released => {
+                        // Handle mouse button release
                     }
                 }
                 WindowEvent::KeyboardInput { event, .. } => {
                     if event.state == ElementState::Pressed && !event.repeat {
+                        let modifiers = ModifiersState::default();
                         match event.key_without_modifiers().as_ref() {
                             Key::Character("1") => {
-                                let modifiers = ModifiersState::default();
                                 if modifiers.shift_key() {
                                     println!("Shift + 1 | logical_key: {:?}", event.logical_key);
                                 } else {
                                     println!("1");
                                 }
                             }
+                            Key::Character("t") => {
+                                if modifiers.control_key() {
+                                    let tabbing_id = self.windows.len() + 1;
+                                    let window = WindowBuilder::new()
+                                        .with_tabbing_identifier(&tabbing_id)
+                                        .build(elwt)
+                                        .unwrap();
+                                    self.windows.insert(window.id(), window);
+                                }
+                            }
                         }
                     }
                 }
                 WindowEvent::MouseWheel { delta, device_id, .. } => {
-                    if let Some(window) = self.windows.iter_mut().find(|w| &w.id == *device_id) {
+                    if let Some(window) = self.windows.get_mut(device_id) {
                         match delta {
                             MouseScrollDelta::LineDelta(x, y) => {
                                 let pixels_per_line = 120.0;
